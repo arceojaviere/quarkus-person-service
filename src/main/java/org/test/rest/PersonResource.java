@@ -2,6 +2,8 @@ package org.test.rest;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -22,6 +24,7 @@ import org.test.model.domain.Person;
 import org.test.model.repository.PersonRepository;
 
 @Path("/person")
+@RequestScoped
 public class PersonResource {
 
     @Inject
@@ -79,6 +82,7 @@ public class PersonResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
+    @RolesAllowed("admin")
     public Person getPersonById(
             @Parameter(
                 description = "The ID of the person to look for", required = true) @PathParam("id") String id) {
